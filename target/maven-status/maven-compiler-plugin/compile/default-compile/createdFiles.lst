@@ -1,2 +1,5 @@
-jakarta\beans\Modalidade.class
-jakarta\controlador\ModalidadeControlador.class
+jakarta/beans/Biblioteca.class
+jakarta/beans/Setor.class
+jakarta/beans/Livro.class
+jakarta/controlador/BibliotecaControlador.class
+jakarta/dao/BibliotecaDao.class

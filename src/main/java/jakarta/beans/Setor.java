@@ -7,6 +7,15 @@ public class Setor {
 	private String nome;
 	private Biblioteca biblioteca;
 
+	public Setor(Integer id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    // Mantenha o construtor vazio (obrigatório para Java Beans/JPA)
+    public Setor() {
+    }
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
