@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Gerenciar Biblioteca</title>
+</h:head>
+
+<h:body>
+    <h:form id="formGeral">
+        <h1>Sistema de Gerenciamento da Biblioteca</h1>
+
+        <p:panel header="Adicionar Novo Setor">
+            <h:panelGrid columns="3">
+                <p:outputLabel value="Nome do Setor:" />
+                <p:inputText value="#{bibliotecaControlador.nomeNovoSetor}" />
+                <p:commandButton value="Adicionar Setor" 
+                                 action="#{bibliotecaControlador.adicionarSetor}" 
+                                 update="tabelaSetores" />
+            </h:panelGrid>
+        </p:panel>
+
+        <br/>
+
+        <p:dataTable id="tabelaSetores" value="#{bibliotecaControlador.setores}" var="setor" 
+                     selectionMode="single" selection="#{bibliotecaControlador.setorSelecionado}" 
+                     rowKey="#{setor.id}">
+            <p:ajax event="rowSelect" update=":formGeral:panelLivros" 
+                    listener="#{bibliotecaControlador.selecionarSetor(setor)}" />
+            
+            <p:column headerText="ID">#{setor.id}</p:column>
+            <p:column headerText="Nome do Setor">#{setor.nome}</p:column>
+        </p:dataTable>
+
+        <br/>
+
+        <p:outputPanel id="panelLivros">
+            <p:panel header="Adicionar Livro ao Setor: #{bibliotecaControlador.setorSelecionado.nome}" 
+                     rendered="#{not empty bibliotecaControlador.setorSelecionado}">
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="Título do Livro:" />
+                    <p:inputText value="#{bibliotecaControlador.tituloNovoLivro}" />
+                    <p:commandButton value="Adicionar Livro" 
+                                     action="#{bibliotecaControlador.adicionarLivro}" 
+                                     update="tabelaLivros" />
+                </h:panelGrid>
+
+                <p:dataTable id="tabelaLivros" value="#{bibliotecaControlador.livros}" var="livro">
+                    <f:facet name="header">Livros no Sistema</f:facet>
+                    <p:column headerText="Título">#{livro.titulo}</p:column>
+                    <p:column headerText="Setor">#{livro.setor.nome}</p:column>
+                </p:dataTable>
+            </p:panel>
+        </p:outputPanel>
+    </h:form>
+</h:body>
+</html>
